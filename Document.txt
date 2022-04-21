@@ -1,0 +1,36 @@
+
+#include<stdio.h>
+#include<pthread.h>
+#define NUM_THREADS 3
+
+int thread_routine(int x){
+printf("thread %2d my TID:%u\n",x,Pthread_shelf());
+
+}
+
+int main(){
+
+int no;
+
+printf("enter positive number:");
+scanf("%d",&no);
+
+
+pthread_attr_t thread_attr;
+pthread_t tids[NUM_THREADS];
+int x;
+pthread_attr_init(&thread_attr);
+
+for(int x=0;x<NUM_THREADS;x++){
+
+pthread_create(&tids[x],&thread_attr,(void *)thread_routine ,(void*)x);
+}
+
+printf("Waiting for threads to finish\n");
+
+for(int x=0;x<NUM_THREADS ;x++){
+pthread_join(tids[x],NULL);
+}
+
+printf("All thread arefinished");
+}
